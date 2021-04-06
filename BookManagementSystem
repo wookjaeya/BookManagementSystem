@@ -1,46 +1,72 @@
+package hellloworld;
+
+import java.util.HashSet;
+import java.util.Scanner;
+
 public class TripManagementSystem {
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        int num = 0;
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		int num = 0;
+		HashSet<String> set_0 = new HashSet<String>();
+		HashSet<String> set_1 = new HashSet<String>();
 
-        while (num != 6) {
-            System.out.println("1. Add City");
-            System.out.println("2. Delete City");
-            System.out.println("3. Edit City");
-            System.out.println("4. View Traver Route");
-            System.out.println("5. Show a Traver Route");
-            System.out.println("6. Exit");
-            System.out.println("Select one number 1~6");
-            num = input.nextInt();
-            switch (num) {
-            case 1:
-                System.out.println("City to go : ");
-                String city = input.next();
-                for (int i = 1; i < 100; i++) {
-                    System.out.println("Where do you want to go? : ");
-                    String place = input.next();
-                    if (place.equals("-")) {
-                        break;
-                    }
-                }
-                break;
-            case 2:
-                System.out.println("Selecet Place to Delete : ");
-                break;
-            case 3:
-                System.out.println("View a Traver Route");
-                break;
-            case 4:
-                System.out.println("Show a Traver Route");
-                break;
-            case 5:
-                System.out.println("id");
-                break;
-            }
-
-        }
-
-    }
-
+		while (num != 5) {
+			System.out.println("1. Add City");
+			System.out.println("2. Delete City");
+			System.out.println("3. Edit City");
+			System.out.println("4. View Traver Route");
+			System.out.println("5. Exit");
+			System.out.println("Select one number 1~5");
+			num = input.nextInt();
+			switch (num) {
+			case 1:
+				for (int i = 1; i < 100; i++) {
+					System.out.println("City to go : ");
+					String city = input.next(); // 도시 입력
+					set_0.add(city);
+					if (city.equals("-")) {
+						break;
+					}
+				}
+				break;
+			case 2:
+				System.out.println("Selecet Place to Delete : ");
+				System.out.println(set_0);
+				System.out.println("Selcet a City");
+				String a = input.next();
+				set_0.remove(a);
+				System.out.println(set_0);
+				break;
+			case 3:
+				System.out.println("Edit a Traver Route");
+				System.out.println(set_0);
+				System.out.println("Selcet a City");
+				String b = input.next();
+				if (set_0.contains(b)) {
+					System.out.println("Where do you want to go? : ");
+					for (int i = 0; i < 100; i++) {
+						String place = input.nextLine();
+						String[] places = place.split(" ");
+						for (int j = 0; j < places.length; j++) {
+							set_1.add(places[j]);
+						}
+						if (place.equals("-")) {
+							break;
+						}
+					}
+				}
+				break;
+			case 4:
+				System.out.println("View a Traver Route");
+				System.out.println(set_0);
+				System.out.println("Selcet a City");
+				b = input.next();
+				if (set_0.contains(b)) {
+					System.out.println(set_1);
+					break;
+				}
+			}
+		}
+	}
 }
