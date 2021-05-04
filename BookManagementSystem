@@ -33,10 +33,15 @@ public class TripManagementSystem {
 			case 2:
 				System.out.println("Selecet Place to Delete : ");
 				System.out.println(set_0);
-				System.out.println("Selcet a City");
-				String a = input.next();
-				set_0.remove(a);
-				System.out.println(set_0);
+				for (int i = 1; i < 100; i++) {
+					System.out.println("Selcet a City");
+					String a = input.next();
+					set_0.remove(a);
+					System.out.println(set_0);
+					if (a.equals("-")) {
+						break;
+					}
+				}
 				break;
 			case 3:
 				System.out.println("Edit a Traver Route");
@@ -64,6 +69,17 @@ public class TripManagementSystem {
 				b = input.next();
 				if (set_0.contains(b)) {
 					System.out.println(set_1);
+					
+					System.out.println("What will you take :");
+					Another Take = new Another(num, b, num);
+					Take.Stay = input.nextInt();
+					Take.Cl = input.next();
+					Take.money = input.nextInt();
+					
+					System.out.println("Traver Period :" + Take.Stay + "days");
+					System.out.println("Clothes to take : " + Take.Cl);
+					System.out.println("Traver expense : " + Take.money+ "원");
+					System.out.println("");			
 					break;
 				}
 			}
