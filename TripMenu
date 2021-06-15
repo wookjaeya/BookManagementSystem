@@ -1,0 +1,130 @@
+package TripManagement;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class TripMenu {
+	static EventLogger logger = new EventLogger("log.txt");
+	
+	public static void main(String[] args) {
+	
+		Scanner input = new Scanner(System.in);
+		TripManager tripmanager = getObject("tripmanager.ser");
+        if (tripmanager == null) {
+        	tripmanager = new TripManager (input);
+        }
+        else {
+        	tripmanager.setScanner(input);
+        } 
+        
+        WindowFrame windowfranme = new WindowFrame(tripmanager);
+		
+		selectMenu(input, tripmanager);
+		putObject(tripmanager, "tripmanager.ser");
+	
+	}
+
+	
+	public static void selectMenu(Scanner input, TripManager  tripmanager) {
+		int num = -1;
+
+		while (num != 5) {
+			try {
+				showMenu();
+				num = input.nextInt();
+				switch(num) {
+				case 1:
+					tripmanager.addTraining();
+					logger.log("add training");
+					break;
+				case 2:
+					tripmanager.deleteTraining();
+					logger.log("delete training");
+					break;
+				case 3:
+					tripmanager.editTraining();
+					logger.log("edit training");
+					break;
+				case 4:
+					tripmanager.viewTrainings();
+					logger.log("view training");
+					break;
+				default:
+					continue;
+				}
+			}
+			catch(InputMismatchException e) {
+				System.out.println("INPUT between 1 ~ 5.");
+				if (input.hasNext()) {
+					input.next();
+				}
+				num = -1;
+					
+			}
+		}
+	}
+	
+
+
+public static void showMenu() {
+		System.out.println("Training Management System Menu");
+		System.out.println("Select a Menu");
+		System.out.println("1. Add Training");
+		System.out.println("2. Delete Training");
+		System.out.println("3. Edit Training");
+		System.out.println("4. View Trainings");
+		System.out.println("5. Exit");
+		System.out.print("Select one number between 1 - 5: ");
+		
+	}
+	
+	public static TripManager getObject(String filename) {
+		TrainingManager tripmanager = null;
+		
+		
+		try {
+			FileInputStream file = new FileInputStream(filename);
+			ObjectInputStream in = new ObjectInputStream(file);
+			
+			tripmanager = (TrainingManager) in.readObject();
+			
+			in.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			return tripmanager;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return trainingManager;
+		
+	}
+	
+	public static void putObject(TripManager  trainingManager, String filename) {
+		try {
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			
+			out.writeObject(trainingManager);
+			
+			out.close();
+			file.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}
